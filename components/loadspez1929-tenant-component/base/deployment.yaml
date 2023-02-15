@@ -1,0 +1,42 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  creationTimestamp: null
+  labels:
+    app.kubernetes.io/created-by: application-service
+    app.kubernetes.io/instance: loadspez1929-tenant-component
+    app.kubernetes.io/managed-by: kustomize
+    app.kubernetes.io/name: loadspez1929-tenant-component
+    app.kubernetes.io/part-of: loadspez1929-tenant-app
+  name: loadspez1929-tenant-component
+  namespace: loadspez1929-tenant
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: devfile-dotnet-deploy
+      app.kubernetes.io/instance: loadspez1929-tenant-component
+  strategy: {}
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: devfile-dotnet-deploy
+        app.kubernetes.io/instance: loadspez1929-tenant-component
+    spec:
+      containers:
+      - image: quay.io/redhat-appstudio-qe/test-images:06cf3d985feb490bbf602b829ca8457f
+        imagePullPolicy: Always
+        name: main
+        ports:
+        - containerPort: 8081
+          name: http
+          protocol: TCP
+        resources:
+          limits:
+            cpu: 100m
+            memory: 300Mi
+          requests:
+            cpu: 10m
+            memory: 100Mi
+status: {}
